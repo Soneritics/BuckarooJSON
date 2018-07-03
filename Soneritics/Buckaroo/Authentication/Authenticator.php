@@ -94,6 +94,23 @@ class Authenticator
         $hmacSignedWithSecret = hash_hmac('sha256', $concatenated, $this->authentication->getSecretKey(), true);
         $base64Hash = base64_encode($hmacSignedWithSecret);
 
+        # Debug
+        if (false) {
+            print_r([
+                'authentication' => $this->authentication,
+                'jsonData' => $jsonData,
+
+                '1' => $httpMethod,
+                '4' => $encodedUrl,
+                '5' => $md5Content,
+                '6' => $base64OfContentMd5,
+                '7' => $concatenated,
+                '8' => $hmacSignedWithSecret,
+                '9' => $base64Hash,
+                '10' => "hmac {$websiteKey}:{$base64Hash}:{$nonce}:{$unixTimestamp}"
+            ]);
+        }
+
         return "hmac {$websiteKey}:{$base64Hash}:{$nonce}:{$unixTimestamp}";
     }
 
@@ -132,6 +149,6 @@ class Authenticator
             $prepared = substr($prepared, 8);
         }
 
-        return urlencode($prepared);
+        return strtolower(urlencode($prepared));
     }
 }
