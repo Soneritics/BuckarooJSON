@@ -24,6 +24,8 @@
  */
 namespace Buckaroo\Services;
 
+use Buckaroo\Exceptions\MissingParameterException;
+
 /**
  * Class AbstractService
  * @package Buckaroo\Services
@@ -50,8 +52,18 @@ abstract class AbstractService
     /**
      * Validate the parameters that have been filled
      * @param array $parameters
+     * @throws MissingParameterException
      */
-    abstract protected function validate(array $parameters): void;
+    abstract protected function validateParameters(array $parameters): void;
+
+    /**
+     * Validate the parameters that have been filled
+     * @throws MissingParameterException
+     */
+    public function validate(): void
+    {
+        $this->validateParameters($this->getParameters());
+    }
 
     /**
      * Get the service parameters

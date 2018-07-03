@@ -64,6 +64,15 @@ class Buckaroo
      */
     public function getTransactionRequest(AbstractService $service): TransactionRequest
     {
-        return new TransactionRequest($this->authentication, $service, $this->test);
+        return new TransactionRequest($this->authentication, $service, $this->getEndpoint());
+    }
+
+    /**
+     * Get the endpoint of the API based on the mode (test or production)
+     * @return string
+     */
+    private function getEndpoint(): string
+    {
+        return $this->test ? 'https://testcheckout.buckaroo.nl/' : 'https://checkout.buckaroo.nl/';
     }
 }

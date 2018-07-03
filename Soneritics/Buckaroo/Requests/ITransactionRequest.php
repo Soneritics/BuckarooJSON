@@ -30,5 +30,9 @@ namespace Buckaroo\Requests;
  */
 interface ITransactionRequest
 {
-
+    /**
+     * Perform the request
+     * @return array
+     */
+    public function request(): array;
 }

@@ -46,7 +46,7 @@ class iDeal extends AbstractPayService
      * @param array $parameters
      * @throws MissingParameterException
      */
-    protected function validate(array $parameters): void
+    public function validateParameters(array $parameters): void
     {
         $mandatory = ['issuer'];
         $parameters = $this->getParameters();

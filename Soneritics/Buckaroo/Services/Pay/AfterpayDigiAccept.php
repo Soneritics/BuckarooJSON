@@ -43,7 +43,7 @@ class AfterpayDigiAccept extends AbstractPayService
      * Validate the parameters
      * @param array $parameters
      */
-    protected function validate(array $parameters): void
+    public function validateParameters(array $parameters): void
     {
 
     }
