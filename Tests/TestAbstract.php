@@ -22,13 +22,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-namespace Buckaroo;
 
 /**
- * Class Buckaroo
- * @package Buckaroo
+ * Class TestAbstract
  */
-class Buckaroo
+use PHPUnit\Framework\TestCase;
+
+
+/**
+ * Abstracte class voor unit tests.
+ *
+ * @author Jordi Jolink
+ * @since 21-4-2015
+ */
+class TestAbstract extends TestCase
 {
 
 }
