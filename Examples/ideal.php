@@ -22,3 +22,19 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+require_once '_require.php';
+require_once '_keys.php';
+
+$authentication = new \Buckaroo\Authentication\Authentication($secretKey, $websiteKey);
+$buckaroo = new \Buckaroo\Buckaroo($authentication, true);
+
+$idealPayService = (new \Buckaroo\Services\Pay\iDeal)
+    ->setIssuer(\Buckaroo\Enums\iDealIssuer::ING);
+
+$idealTransactionRequest = $buckaroo->getTransactionRequest($idealPayService)
+    ->setAmountDebit(12.5)
+    ->setInvoice('inv-123')
+    ->request();
+
+print_r($idealTransactionRequest);
+
