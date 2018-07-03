@@ -57,7 +57,7 @@ class Authentication
      * Get the user's secret key
      * @return string
      */
-    public function getSecretKey()
+    public function getSecretKey(): string
     {
         return $this->secretKey;
     }
@@ -66,7 +66,7 @@ class Authentication
      * Get the website's key
      * @return string
      */
-    public function getWebsiteKey()
+    public function getWebsiteKey(): string
     {
         return $this->websiteKey;
     }
