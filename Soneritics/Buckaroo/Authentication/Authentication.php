@@ -22,18 +22,52 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-require_once 'TestAbstract.php';
+namespace Buckaroo\Authentication;
 
 /**
- * Class CITest
+ * Class Authentication
+ * @package Buckaroo
  */
-class CITest extends TestAbstract
+class Authentication
 {
     /**
-     * Getting CI up and running with a successful build :-)
+     * The user's secret key
+     * @var string
      */
-    public function testTrue()
+    private $secretKey;
+
+    /**
+     * The website's secret key
+     * @var string
+     */
+    private $websiteKey;
+
+    /**
+     * Authentication constructor.
+     * @param string $secretKey
+     * @param string $websiteKey
+     */
+    public function __construct($secretKey, $websiteKey)
     {
-        $this->assertTrue(true);
+        $this->secretKey = $secretKey;
+        $this->websiteKey = $websiteKey;
+    }
+
+    /**
+     * Get the user's secret key
+     * @return string
+     */
+    public function getSecretKey()
+    {
+        return $this->secretKey;
+    }
+
+    /**
+     * Get the website's key
+     * @return string
+     */
+    public function getWebsiteKey()
+    {
+        return $this->websiteKey;
     }
 }

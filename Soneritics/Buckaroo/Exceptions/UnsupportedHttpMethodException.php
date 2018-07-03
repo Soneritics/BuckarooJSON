@@ -22,28 +22,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+namespace Buckaroo\Exceptions;
 
 /**
- * Class TestAbstract
+ * Class UnsupportedHttpMethodException
+ * @package Buckaroo\Exceptions
  */
-use PHPUnit\Framework\TestCase;
-use \Buckaroo\Authentication\Authentication;
-
-require_once 'MockObjects/MockNonceGenerator.php';
-
-/**
- * Abstract class for unit tests.
- * @author Jordi Jolink
- * @since 21-4-2015
- */
-class TestAbstract extends TestCase
+class UnsupportedHttpMethodException extends \Exception
 {
     /**
-     * Get a default Authenication for the tests
-     * @return Authentication
+     * UnsupportedHttpMethodException constructor.
+     * @param string $message
+     * @param int $code
+     * @param \Throwable|null $previous
      */
-    protected function getAuthentication(): Authentication
+    public function __construct($message = "", $code = 0, \Throwable $previous = null)
     {
-        return new Authentication('secretkey', 'websitekey');
+        $message = "Unsupported HTTP Method: {$message}. Only GET and POST are allowed.";
+        parent::__construct($message, $code, $previous);
     }
 }

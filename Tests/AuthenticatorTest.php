@@ -22,28 +22,39 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+require_once 'TestAbstract.php';
+
+use Buckaroo\Authentication\Authenticator;
 
 /**
- * Class TestAbstract
+ * Class AuthenticatorTest
  */
-use PHPUnit\Framework\TestCase;
-use \Buckaroo\Authentication\Authentication;
-
-require_once 'MockObjects/MockNonceGenerator.php';
-
-/**
- * Abstract class for unit tests.
- * @author Jordi Jolink
- * @since 21-4-2015
- */
-class TestAbstract extends TestCase
+class AuthenticatorTest extends TestAbstract
 {
     /**
-     * Get a default Authenication for the tests
-     * @return Authentication
+     * Get an Authenticator object that can be used in tests
+     * @return Authenticator
      */
-    protected function getAuthentication(): Authentication
+    private function getAuthenticator(): Authenticator
     {
-        return new Authentication('secretkey', 'websitekey');
+        return (new Authenticator($this->getAuthentication()))->setNonceGenerator(new MockNonceGenerator);
+    }
+
+    /**
+     * Test the default authentication header.
+     * @see https://testcheckout.buckaroo.nl/json/Docs/AuthenticationDebugger
+     * @see https://checkout.buckaroo.nl/json/Docs/AuthenticationDebugger
+     */
+    public function testAuthenticationHeader()
+    {
+        $jsonData = '{"test": "value"}';
+        $requestUrl = 'testcheckout.buckaroo.nl/json/TransactionRequest';
+        $httpMethod = 'POST';
+        $timestamp = 1530612200;
+
+        $expected = 'hmac websitekey:06YXwk74QhYCb/+h99Bi0dPwArn2m1sXCNu5YCvhlgM=:mocknonce:1530612200';
+        $actual = $this->getAuthenticator()->getAuthenticationHeader($jsonData, $requestUrl, $httpMethod, $timestamp);
+
+        $this->assertEquals($expected, $actual);
     }
 }

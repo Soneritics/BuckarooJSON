@@ -22,28 +22,26 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+namespace Buckaroo\Authentication;
 
 /**
- * Class TestAbstract
+ * Class NonceGenerator
+ * @package Buckaroo\Authentication
  */
-use PHPUnit\Framework\TestCase;
-use \Buckaroo\Authentication\Authentication;
-
-require_once 'MockObjects/MockNonceGenerator.php';
-
-/**
- * Abstract class for unit tests.
- * @author Jordi Jolink
- * @since 21-4-2015
- */
-class TestAbstract extends TestCase
+class NonceGenerator implements INonceGenerator
 {
     /**
-     * Get a default Authenication for the tests
-     * @return Authentication
+     * Generate a nonce
+     * @return string
      */
-    protected function getAuthentication(): Authentication
+    public function generate(): string
     {
-        return new Authentication('secretkey', 'websitekey');
+        $result = "";
+        $possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        for ($i = 0; $i < 16; $i++) {
+            $result .= $possible[mt_rand(0, strlen($possible) - 1)];
+        }
+
+        return $result;
     }
 }

@@ -23,27 +23,19 @@
  * THE SOFTWARE.
  */
 
-/**
- * Class TestAbstract
- */
-use PHPUnit\Framework\TestCase;
-use \Buckaroo\Authentication\Authentication;
-
-require_once 'MockObjects/MockNonceGenerator.php';
+use \Buckaroo\Authentication\INonceGenerator;
 
 /**
- * Abstract class for unit tests.
- * @author Jordi Jolink
- * @since 21-4-2015
+ * Class MockNonceGenerator
  */
-class TestAbstract extends TestCase
+class MockNonceGenerator implements INonceGenerator
 {
     /**
-     * Get a default Authenication for the tests
-     * @return Authentication
+     * Generate a nonce
+     * @return string
      */
-    protected function getAuthentication(): Authentication
+    public function generate(): string
     {
-        return new Authentication('secretkey', 'websitekey');
+        return 'mocknonce';
     }
 }
