@@ -22,48 +22,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-namespace Buckaroo;
+namespace Buckaroo\Services\Pay;
 
-use Buckaroo\Authentication\Authentication;
-use Buckaroo\Requests\TransactionRequest;
 use Buckaroo\Services\AbstractService;
 
 /**
- * Class Buckaroo
- * @package Buckaroo
+ * Class AbstractPayService
+ * @package Buckaroo\Services\Pay
  */
-class Buckaroo
+abstract class AbstractPayService extends AbstractService
 {
     /**
-     * Authentication data
-     * @var Authentication
+     * Get this service's action
+     * @return string
      */
-    private $authentication;
-
-    /**
-     * Test mode
-     * @var bool
-     */
-    private $test;
-
-    /**
-     * Buckaroo constructor.
-     * @param Authentication $authentication
-     * @param bool $test
-     */
-    public function __construct(Authentication $authentication, bool $test = true)
+    public function getAction(): string
     {
-        $this->authentication = $authentication;
-        $this->test = $test;
-    }
-
-    /**
-     * Get the TransactionRequest
-     * @param AbstractService $service
-     * @return TransactionRequest
-     */
-    public function getTransactionRequest(AbstractService $service): TransactionRequest
-    {
-        return new TransactionRequest($this->authentication, $service, $this->test);
+        return 'Pay';
     }
 }

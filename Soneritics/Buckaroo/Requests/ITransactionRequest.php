@@ -22,54 +22,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-namespace Buckaroo\Services;
+namespace Buckaroo\Requests;
 
 /**
- * Class AbstractService
- * @package Buckaroo\Services
+ * Interface ITransactionRequest
+ * @package Buckaroo\Requests
  */
-abstract class AbstractService
+interface ITransactionRequest
 {
-    /**
-     * @var array
-     */
-    private $parameters = [];
 
-    /**
-     * Get this service's name
-     * @return string
-     */
-    abstract public function getName(): string;
-
-    /**
-     * Get this service's action
-     * @return string
-     */
-    abstract public function getAction(): string;
-
-    /**
-     * Validate the parameters that have been filled
-     * @param array $parameters
-     */
-    abstract protected function validate(array $parameters): void;
-
-    /**
-     * Get the service parameters
-     * @return array
-     */
-    public function getParameters(): array
-    {
-        return $this->parameters;
-    }
-
-    /**
-     * @param string $key
-     * @param mixed $value
-     * @return AbstractService
-     */
-    protected function set(string $key, $value): AbstractService
-    {
-        $this->parameters[$key] = $value;
-        return $this;
-    }
 }

@@ -22,48 +22,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-namespace Buckaroo;
-
-use Buckaroo\Authentication\Authentication;
-use Buckaroo\Requests\TransactionRequest;
-use Buckaroo\Services\AbstractService;
+namespace Buckaroo\Exceptions;
 
 /**
- * Class Buckaroo
- * @package Buckaroo
+ * Class MissingParameterException
+ * @package Buckaroo\Exceptions
  */
-class Buckaroo
+class MissingParameterException extends \Exception
 {
     /**
-     * Authentication data
-     * @var Authentication
+     * MissingParameterException constructor.
+     * @param string $message
+     * @param int $code
+     * @param \Throwable|null $previous
      */
-    private $authentication;
-
-    /**
-     * Test mode
-     * @var bool
-     */
-    private $test;
-
-    /**
-     * Buckaroo constructor.
-     * @param Authentication $authentication
-     * @param bool $test
-     */
-    public function __construct(Authentication $authentication, bool $test = true)
+    public function __construct($message = "", $code = 0, \Throwable $previous = null)
     {
-        $this->authentication = $authentication;
-        $this->test = $test;
-    }
-
-    /**
-     * Get the TransactionRequest
-     * @param AbstractService $service
-     * @return TransactionRequest
-     */
-    public function getTransactionRequest(AbstractService $service): TransactionRequest
-    {
-        return new TransactionRequest($this->authentication, $service, $this->test);
+        $message = "Missing parameter: {$message}";
+        parent::__construct($message, $code, $previous);
     }
 }

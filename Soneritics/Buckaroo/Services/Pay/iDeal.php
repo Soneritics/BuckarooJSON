@@ -22,48 +22,50 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-namespace Buckaroo;
+namespace Buckaroo\Services\Pay;
 
-use Buckaroo\Authentication\Authentication;
-use Buckaroo\Requests\TransactionRequest;
-use Buckaroo\Services\AbstractService;
+use Buckaroo\Exceptions\MissingParameterException;
 
 /**
- * Class Buckaroo
- * @package Buckaroo
+ * Class iDeal
+ * @package Buckaroo\Services\Pay
  */
-class Buckaroo
+class iDeal extends AbstractPayService
 {
     /**
-     * Authentication data
-     * @var Authentication
+     * Get this service's name
+     * @return string
      */
-    private $authentication;
-
-    /**
-     * Test mode
-     * @var bool
-     */
-    private $test;
-
-    /**
-     * Buckaroo constructor.
-     * @param Authentication $authentication
-     * @param bool $test
-     */
-    public function __construct(Authentication $authentication, bool $test = true)
+    public function getName(): string
     {
-        $this->authentication = $authentication;
-        $this->test = $test;
+        return 'ideal';
     }
 
     /**
-     * Get the TransactionRequest
-     * @param AbstractService $service
-     * @return TransactionRequest
+     * Validate the parameters that have been filled
+     * @param array $parameters
+     * @throws MissingParameterException
      */
-    public function getTransactionRequest(AbstractService $service): TransactionRequest
+    protected function validate(array $parameters): void
     {
-        return new TransactionRequest($this->authentication, $service, $this->test);
+        $mandatory = ['issuer'];
+        $parameters = $this->getParameters();
+
+        foreach ($mandatory as $item) {
+            if (!isset($parameters[$item]) || empty($parameters[$item])) {
+                throw new MissingParameterException($item);
+            }
+        }
+    }
+
+    /**
+     * Set the iDeal issuer
+     * @param string $issuer
+     * @return iDeal
+     */
+    public function setIssuer(string $issuer): iDeal
+    {
+        $this->set('issuer', $issuer);
+        return $this;
     }
 }

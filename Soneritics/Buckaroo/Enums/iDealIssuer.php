@@ -22,48 +22,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-namespace Buckaroo;
-
-use Buckaroo\Authentication\Authentication;
-use Buckaroo\Requests\TransactionRequest;
-use Buckaroo\Services\AbstractService;
+namespace Buckaroo\Enums;
 
 /**
- * Class Buckaroo
- * @package Buckaroo
+ * Class iDealIssuers
+ * @package Buckaroo\Enums
  */
-class Buckaroo
+class iDealIssuer
 {
-    /**
-     * Authentication data
-     * @var Authentication
-     */
-    private $authentication;
-
-    /**
-     * Test mode
-     * @var bool
-     */
-    private $test;
-
-    /**
-     * Buckaroo constructor.
-     * @param Authentication $authentication
-     * @param bool $test
-     */
-    public function __construct(Authentication $authentication, bool $test = true)
-    {
-        $this->authentication = $authentication;
-        $this->test = $test;
-    }
-
-    /**
-     * Get the TransactionRequest
-     * @param AbstractService $service
-     * @return TransactionRequest
-     */
-    public function getTransactionRequest(AbstractService $service): TransactionRequest
-    {
-        return new TransactionRequest($this->authentication, $service, $this->test);
-    }
+    const ABNAMRO = 'ABNANL2A';
+    const ASNBANK = 'ASNBNL21';
+    const ING = 'INGBNL2A';
+    const RABOBANK = 'RABONL2U';
+    const SNSBANK = 'SNSBNL2A';
+    const SNSREGIOBANK = 'RBRBNL21';
+    const TRIODOSBANK = 'TRIONL2U';
+    const VANLANSCHOT = 'FVLBNL22';
+    const KNAB = 'KNABNL2H';
+    const BuNQ = 'BUNQNL2A';
+    const MONEYOU = 'MOYONL21';
 }

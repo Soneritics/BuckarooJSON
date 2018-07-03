@@ -22,54 +22,42 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-namespace Buckaroo\Services;
+namespace Buckaroo\Requests;
+
+use Buckaroo\Authentication\Authentication;
+use Buckaroo\Services\AbstractService;
 
 /**
- * Class AbstractService
- * @package Buckaroo\Services
+ * Class TransactionRequest
+ * @package Buckaroo\Requests
  */
-abstract class AbstractService
+class TransactionRequest implements ITransactionRequest
 {
     /**
-     * @var array
+     * @var Authentication
      */
-    private $parameters = [];
+    private $authentication;
 
     /**
-     * Get this service's name
-     * @return string
+     * @var AbstractService
      */
-    abstract public function getName(): string;
+    private $service;
 
     /**
-     * Get this service's action
-     * @return string
+     * @var bool
      */
-    abstract public function getAction(): string;
+    private $test = true;
 
     /**
-     * Validate the parameters that have been filled
-     * @param array $parameters
+     * TransactionRequest constructor.
+     * @param Authentication $authentication
+     * @param AbstractService $service
+     * @param bool $test
      */
-    abstract protected function validate(array $parameters): void;
-
-    /**
-     * Get the service parameters
-     * @return array
-     */
-    public function getParameters(): array
+    public function __construct(Authentication $authentication, AbstractService $service, bool $test)
     {
-        return $this->parameters;
-    }
-
-    /**
-     * @param string $key
-     * @param mixed $value
-     * @return AbstractService
-     */
-    protected function set(string $key, $value): AbstractService
-    {
-        $this->parameters[$key] = $value;
-        return $this;
+        $this->authentication = $authentication;
+        $this->service = $service;
+        $this->test = $test;
     }
 }

@@ -22,54 +22,29 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-namespace Buckaroo\Services;
+namespace Buckaroo\Services\Pay;
 
 /**
- * Class AbstractService
- * @package Buckaroo\Services
+ * Class AfterpayDigiAccept
+ * @package Buckaroo\Services\Pay
  */
-abstract class AbstractService
+class AfterpayDigiAccept extends AbstractPayService
 {
-    /**
-     * @var array
-     */
-    private $parameters = [];
-
     /**
      * Get this service's name
      * @return string
      */
-    abstract public function getName(): string;
-
-    /**
-     * Get this service's action
-     * @return string
-     */
-    abstract public function getAction(): string;
-
-    /**
-     * Validate the parameters that have been filled
-     * @param array $parameters
-     */
-    abstract protected function validate(array $parameters): void;
-
-    /**
-     * Get the service parameters
-     * @return array
-     */
-    public function getParameters(): array
+    public function getName(): string
     {
-        return $this->parameters;
+        return 'afterpaydigiaccept';
     }
 
     /**
-     * @param string $key
-     * @param mixed $value
-     * @return AbstractService
+     * Validate the parameters
+     * @param array $parameters
      */
-    protected function set(string $key, $value): AbstractService
+    protected function validate(array $parameters): void
     {
-        $this->parameters[$key] = $value;
-        return $this;
+
     }
 }
