@@ -74,8 +74,8 @@ class Authenticator
             throw new UnsupportedHttpMethodException($httpMethod);
         }
 
-        // When there is no data, HTTP Method must be POST
-        if (empty($jsonData) && $httpMethod !== 'POST') {
+        // When there is no data, HTTP Method must be GET
+        if (empty($jsonData) && $httpMethod !== 'GET') {
             throw new InvalidHttpMethodException();
         }
 
