@@ -27,6 +27,7 @@ namespace Buckaroo;
 use Buckaroo\Authentication\Authentication;
 use Buckaroo\Authentication\Authenticator;
 use Buckaroo\Requests\TransactionRequest;
+use Buckaroo\Requests\TransactionStatusRequest;
 use Buckaroo\Services\AbstractService;
 
 /**
@@ -66,6 +67,16 @@ class Buckaroo
     public function getTransactionRequest(AbstractService $service): TransactionRequest
     {
         return new TransactionRequest(new Authenticator($this->authentication), $service, $this->getEndpoint());
+    }
+
+    /**
+     * Get the TransactionStatusRequest
+     * @param string $code
+     * @return TransactionStatusRequest
+     */
+    public function getTransactionStatusRequest(string $code): TransactionStatusRequest
+    {
+        return new TransactionStatusRequest(new Authenticator($this->authentication), $code, $this->getEndpoint());
     }
 
     /**
