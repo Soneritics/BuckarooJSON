@@ -25,6 +25,8 @@
 require_once 'TestAbstract.php';
 
 use Buckaroo\Authentication\Authenticator;
+use Buckaroo\Exceptions\UnsupportedHttpMethodException;
+use Buckaroo\Exceptions\InvalidHttpMethodException;
 
 /**
  * Class AuthenticatorTest
@@ -56,5 +58,33 @@ class AuthenticatorTest extends TestAbstract
         $actual = $this->getAuthenticator()->getAuthenticationHeader($jsonData, $requestUrl, $httpMethod, $timestamp);
 
         $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * Test for unsupported HTTP Methods
+     */
+    public function testAuthenticationHeaderUnsupportedHttpMethodException()
+    {
+        $httpMethod = 'PUT';
+        $jsonData = '{"test": "value"}';
+        $requestUrl = 'testcheckout.buckaroo.nl/json/TransactionRequest';
+        $timestamp = 1530612200;
+
+        $this->expectException(UnsupportedHttpMethodException::class);
+        $this->getAuthenticator()->getAuthenticationHeader($jsonData, $requestUrl, $httpMethod, $timestamp);
+    }
+
+    /**
+     * Test for invalid HTTP Methods
+     */
+    public function testAuthenticationHeaderInvalidHttpMethodException()
+    {
+        $httpMethod = 'POST';
+        $jsonData = '';
+        $requestUrl = 'testcheckout.buckaroo.nl/json/TransactionRequest';
+        $timestamp = 1530612200;
+
+        $this->expectException(InvalidHttpMethodException::class);
+        $this->getAuthenticator()->getAuthenticationHeader($jsonData, $requestUrl, $httpMethod, $timestamp);
     }
 }
