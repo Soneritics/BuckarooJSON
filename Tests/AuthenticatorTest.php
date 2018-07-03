@@ -61,6 +61,24 @@ class AuthenticatorTest extends TestAbstract
     }
 
     /**
+     * Test an authentication with no data and GET method.
+     * @see https://testcheckout.buckaroo.nl/json/Docs/AuthenticationDebugger
+     * @see https://checkout.buckaroo.nl/json/Docs/AuthenticationDebugger
+     */
+    public function testAuthenticationHeaderWithEmptyDataAndGETMethod()
+    {
+        $jsonData = '';
+        $requestUrl = 'https://testcheckout.buckaroo.nl/json/Transaction/Status';
+        $httpMethod = 'GET';
+        $timestamp = 1530646598;
+
+        $expected = 'hmac websitekey:40obicSlTa6FsxGSeQrebKiY4FrNy8/N5PfetToRQ9w=:mocknonce:1530646598';
+        $actual = $this->getAuthenticator()->getAuthenticationHeader($jsonData, $requestUrl, $httpMethod, $timestamp);
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
      * Test for unsupported HTTP Methods
      */
     public function testAuthenticationHeaderUnsupportedHttpMethodException()
