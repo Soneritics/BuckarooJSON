@@ -38,3 +38,6 @@ $idealTransactionRequest = $buckaroo->getTransactionRequest($idealPayService)
 
 print_r($idealTransactionRequest);
 
+echo "Your transaction has the key: {$idealTransactionRequest['Key']}" . PHP_EOL;
+echo "You should go to the following URL to complete the payment: " . PHP_EOL;
+echo $idealTransactionRequest['RequiredAction']['RedirectURL'] . PHP_EOL;
