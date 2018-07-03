@@ -26,6 +26,7 @@ namespace Buckaroo\Requests;
 
 use Buckaroo\Authentication\Authenticator;
 use Buckaroo\Exceptions\MissingParameterException;
+use Buckaroo\Exceptions\RestRequestException;
 use Buckaroo\Exceptions\WrongParameterCombinationException;
 use Buckaroo\Services\AbstractService;
 
@@ -35,7 +36,7 @@ use Buckaroo\Services\AbstractService;
  */
 class TransactionRequest implements ITransactionRequest
 {
-    const API_URL = 'json/TransactionRequest';
+    const API_URL = 'json/Transaction';
 
     /**
      * @var Authenticator
@@ -142,6 +143,7 @@ class TransactionRequest implements ITransactionRequest
      * @throws \Buckaroo\Exceptions\MissingParameterException
      * @throws \Buckaroo\Exceptions\UnsupportedHttpMethodException
      * @throws WrongParameterCombinationException
+     * @throws RestRequestException
      */
     public function request(): array
     {
@@ -150,12 +152,35 @@ class TransactionRequest implements ITransactionRequest
 
         // Perform the request
         $data = $this->getPayload();
-        $jsonData = json_encode($data);
-        $header = ['authorization' => $this->authenticator->getAuthenticationHeader(
-            $jsonData, $this->endpoint . $this::API_URL
+        $headers = ['authorization' => $this->authenticator->getAuthenticationHeader(
+            json_encode($data),
+            $this->endpoint . $this::API_URL
         )];
 
-        return $data;
+        return $this->performActualRequest(
+            $this->endpoint . $this::API_URL,
+            $data,
+            $headers
+        );
+    }
+
+    /**
+     * Perform the actual HTTP request
+     * @param string $url
+     * @param array $data
+     * @param array $headers
+     * @return array
+     * @throws RestRequestException
+     */
+    private function performActualRequest(string $url, array $data, array $headers = []): array
+    {
+        $request = (new \GuzzleHttp\Client)->post($url, ['json' => $data, 'headers' => $headers, 'verify' => false]);
+
+        if ($request->getStatusCode() !== 200) {
+            throw new RestRequestException((string)$request->getStatusCode() . ' ' . $request->getReasonPhrase());
+        }
+
+        return json_decode($request->getBody()->getContents(), true);
     }
 
     /**
