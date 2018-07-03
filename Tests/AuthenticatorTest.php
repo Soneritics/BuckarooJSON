@@ -50,7 +50,7 @@ class AuthenticatorTest extends TestAbstract
     public function testAuthenticationHeader()
     {
         $jsonData = '{"test": "value"}';
-        $requestUrl = 'testcheckout.buckaroo.nl/json/TransactionRequest';
+        $requestUrl = 'https://testcheckout.buckaroo.nl/json/TransactionRequest';
         $httpMethod = 'POST';
         $timestamp = 1530612200;
 
@@ -67,7 +67,7 @@ class AuthenticatorTest extends TestAbstract
     {
         $httpMethod = 'PUT';
         $jsonData = '{"test": "value"}';
-        $requestUrl = 'testcheckout.buckaroo.nl/json/TransactionRequest';
+        $requestUrl = 'https://testcheckout.buckaroo.nl/json/TransactionRequest';
         $timestamp = 1530612200;
 
         $this->expectException(UnsupportedHttpMethodException::class);
@@ -81,7 +81,7 @@ class AuthenticatorTest extends TestAbstract
     {
         $httpMethod = 'POST';
         $jsonData = '';
-        $requestUrl = 'testcheckout.buckaroo.nl/json/TransactionRequest';
+        $requestUrl = 'https://testcheckout.buckaroo.nl/json/TransactionRequest';
         $timestamp = 1530612200;
 
         $this->expectException(InvalidHttpMethodException::class);

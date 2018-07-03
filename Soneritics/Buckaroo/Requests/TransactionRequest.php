@@ -24,7 +24,9 @@
  */
 namespace Buckaroo\Requests;
 
-use Buckaroo\Authentication\Authentication;
+use Buckaroo\Authentication\Authenticator;
+use Buckaroo\Exceptions\MissingParameterException;
+use Buckaroo\Exceptions\WrongParameterCombinationException;
 use Buckaroo\Services\AbstractService;
 
 /**
@@ -36,9 +38,9 @@ class TransactionRequest implements ITransactionRequest
     const API_URL = 'json/TransactionRequest';
 
     /**
-     * @var Authentication
+     * @var Authenticator
      */
-    private $authentication;
+    private $authenticator;
 
     /**
      * @var AbstractService
@@ -122,13 +124,13 @@ class TransactionRequest implements ITransactionRequest
 
     /**
      * TransactionRequest constructor.
-     * @param Authentication $authentication
+     * @param Authenticator $authenticator
      * @param AbstractService $service
      * @param string $endpoint
      */
-    public function __construct(Authentication $authentication, AbstractService $service, string $endpoint)
+    public function __construct(Authenticator $authenticator, AbstractService $service, string $endpoint)
     {
-        $this->authentication = $authentication;
+        $this->authenticator = $authenticator;
         $this->service = $service;
         $this->endpoint = $endpoint;
     }
@@ -136,7 +138,10 @@ class TransactionRequest implements ITransactionRequest
     /**
      * Perform the request
      * @return array
+     * @throws \Buckaroo\Exceptions\InvalidHttpMethodException
      * @throws \Buckaroo\Exceptions\MissingParameterException
+     * @throws \Buckaroo\Exceptions\UnsupportedHttpMethodException
+     * @throws WrongParameterCombinationException
      */
     public function request(): array
     {
@@ -144,7 +149,13 @@ class TransactionRequest implements ITransactionRequest
         $this->validate();
 
         // Perform the request
+        $data = $this->getPayload();
+        $jsonData = json_encode($data);
+        $header = ['authorization' => $this->authenticator->getAuthenticationHeader(
+            $jsonData, $this->endpoint . $this::API_URL
+        )];
 
+        return $data;
     }
 
     /**
@@ -306,13 +317,77 @@ class TransactionRequest implements ITransactionRequest
     /**
      * Validate the parameters
      * @throws \Buckaroo\Exceptions\MissingParameterException
+     * @throws WrongParameterCombinationException
      */
     private function validate(): void
     {
         // First validate the service params
         $this->service->validate();
 
-        // Validate the own class' properties
-        // @todo
+        // Validate the own class' properties on being set
+        $mandatoryProperties = ['currency', 'invoice'];
+        foreach ($mandatoryProperties as $mandatoryProperty) {
+            if (empty($this->$mandatoryProperty)) {
+                throw new MissingParameterException($mandatoryProperty);
+            }
+        }
+
+        // Other validations on the properties
+        if (empty($this->amountCredit) && empty($this->amountDebit)) {
+            throw new MissingParameterException('amountDebit');
+        }
+
+        if (empty($this->amountCredit) && empty($this->amountDebit)) {
+            throw new WrongParameterCombinationException('amountDebit & amountCredit can not both have a value');
+        }
+    }
+
+    /**
+     * Generate the call's payload
+     * @return array
+     */
+    private function getPayload(): array
+    {
+        $result = [];
+        $values = [
+            'Currency',
+            'AmountDebit',
+            'AmountCredit',
+            'Invoice',
+            'Order',
+            'Description',
+            'ReturnURL',
+            'ReturnURLCancel',
+            'ReturnURLError',
+            'ReturnURLReject',
+            'OriginalTransactionKey',
+            'StartRecurrent',
+            'PushURL',
+            'PushURLFailure'
+        ];
+        foreach ($values as $value) {
+            $prop = lcfirst($value);
+            if (!empty($this->$prop)) {
+                $result[$value] = $this->$prop;
+            }
+        }
+
+        $parameterList = [];
+        foreach ($this->service->getParameters() as $parameterName => $parameterValue) {
+            $parameterList[] = [
+                'Name' => $parameterName,
+                'Value' => $parameterValue
+            ];
+        }
+
+        $result['Services'] = [
+            'ServiceList' => [[
+                'Name' => $this->service->getName(),
+                'Action' => $this->service->getAction(),
+                'Parameters' => $parameterList
+            ]]
+        ];
+
+        return $result;
     }
 }

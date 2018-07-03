@@ -85,12 +85,12 @@ class Authenticator
         }
 
         // Prepare data
-        $encodedUrl = strtolower(urlencode($requestUrl));
+        $encodedUrl = $this->getEncodedUrl($requestUrl);
         $nonce = $this->getNonceGenerator()->generate();
         $md5Content = md5($jsonData, true);
         $base64OfContentMd5 = base64_encode($md5Content);
         $websiteKey = $this->authentication->getWebsiteKey();
-        $concatenated = "{$websiteKey}{$httpMethod}{$encodedUrl}{$unixTimestamp}{$nonce}{$base64OfContentMd5}"; // dit klopt nog
+        $concatenated = "{$websiteKey}{$httpMethod}{$encodedUrl}{$unixTimestamp}{$nonce}{$base64OfContentMd5}";
         $hmacSignedWithSecret = hash_hmac('sha256', $concatenated, $this->authentication->getSecretKey(), true);
         $base64Hash = base64_encode($hmacSignedWithSecret);
 
@@ -117,5 +117,21 @@ class Authenticator
         }
 
         return $this->nonceGenerator;
+    }
+
+    /**
+     * Get an encoded version of the URL that can be used in the request
+     * @param $rawUrl
+     * @return string
+     */
+    private function getEncodedUrl($rawUrl): string
+    {
+        $prepared = strtolower($rawUrl);
+
+        if (substr($prepared, 0, 8) === 'https://') {
+            $prepared = substr($prepared, 8);
+        }
+
+        return urlencode($prepared);
     }
 }
