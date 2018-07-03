@@ -87,8 +87,8 @@ class Authenticator
         // Prepare data
         $encodedUrl = $this->getEncodedUrl($requestUrl);
         $nonce = $this->getNonceGenerator()->generate();
-        $md5Content = md5($jsonData, true);
-        $base64OfContentMd5 = base64_encode($md5Content);
+        $md5Content = empty($jsonData) ? '' : md5($jsonData, true);
+        $base64OfContentMd5 = empty($md5Content) ? '' : base64_encode($md5Content);
         $websiteKey = $this->authentication->getWebsiteKey();
         $concatenated = "{$websiteKey}{$httpMethod}{$encodedUrl}{$unixTimestamp}{$nonce}{$base64OfContentMd5}";
         $hmacSignedWithSecret = hash_hmac('sha256', $concatenated, $this->authentication->getSecretKey(), true);
