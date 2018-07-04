@@ -405,6 +405,8 @@ class TransactionRequest implements ITransactionRequest
             ];
         }
 
+        $parameterList = $this->service->complementParameterList($parameterList);
+
         $result['Services'] = [
             'ServiceList' => [[
                 'Name' => $this->service->getName(),

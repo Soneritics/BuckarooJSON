@@ -75,6 +75,16 @@ abstract class AbstractService
     }
 
     /**
+     * Give the possibility to add extra information to the parameters list
+     * @param array $parameters
+     * @return array
+     */
+    public function complementParameterList(array $parameters): array
+    {
+        return $parameters;
+    }
+
+    /**
      * @param string $key
      * @param mixed $value
      * @return AbstractService
