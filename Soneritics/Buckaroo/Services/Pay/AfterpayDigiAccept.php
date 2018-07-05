@@ -198,8 +198,8 @@ class AfterpayDigiAccept extends AbstractPayService
         string $description,
         int $quantity,
         float $unitPrice,
-        int $vatCategory = VatCategory::HIGH): AfterpayDigiAccept
-    {
+        int $vatCategory = VatCategory::HIGH
+    ): AfterpayDigiAccept {
         $this->articles[] = [
             'ArticleId' => $id,
             'ArticleDescription' => $description,

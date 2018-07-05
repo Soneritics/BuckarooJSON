@@ -67,8 +67,7 @@ class Authenticator
         string $requestUrl,
         string $httpMethod = 'POST',
         int $unixTimestamp = null
-    ): string
-    {
+    ): string {
         // Only valid HTTP methods are allowed
         if (!in_array($httpMethod, ['GET', 'POST'])) {
             throw new UnsupportedHttpMethodException($httpMethod);
