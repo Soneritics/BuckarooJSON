@@ -28,7 +28,9 @@ namespace Buckaroo\Enums;
  * Class iDealIssuers
  * @package Buckaroo\Enums
  */
+// @codingStandardsIgnoreStart
 class iDealIssuer
+// @codingStandardsIgnoreEnd
 {
     const ABNAMRO = 'ABNANL2A';
     const ASNBANK = 'ASNBNL21';
@@ -39,6 +41,6 @@ class iDealIssuer
     const TRIODOSBANK = 'TRIONL2U';
     const VANLANSCHOT = 'FVLBNL22';
     const KNAB = 'KNABNL2H';
-    const BuNQ = 'BUNQNL2A';
+    const BUNQ = 'BUNQNL2A';
     const MONEYOU = 'MOYONL21';
 }

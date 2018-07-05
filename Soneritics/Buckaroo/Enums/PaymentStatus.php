@@ -30,14 +30,33 @@ namespace Buckaroo\Enums;
  */
 class PaymentStatus
 {
-    const SUCCESS = 190; // The transaction has succeeded and the payment has been received/approved.
-    const FAILED = 490; // The transaction has failed.
-    const VALIDATION_FAILURE = 491; // The transaction request contained errors and could not be processed correctly
-    const TECHNICAL_FAILURE = 492; // Some technical failure prevented the completion of the transactions
-    const CANCELLED_BY_USER = 890; // The transaction was cancelled by the customer.
-    const CANCELLED_BY_MERCHANT = 891; // The merchant cancelled the transaction.
-    const REJECTED = 690; // The transaction has been rejected by the (third party) payment provider.
-    const PENDING_INPUT = 790; // The transaction is on hold while the payment engine is waiting on further input from the consumer.
-    const PENDING_PROCESSING = 791; // The transaction is being processed.
-    const AWAITING_CONSUMER = 792; // The Payment Engine is waiting for the consumer to return from a third party website, needed to complete the transaction.
+    // The transaction has succeeded and the payment has been received/approved.
+    const SUCCESS = 190;
+
+    // The transaction has failed.
+    const FAILED = 490;
+
+    // The transaction request contained errors and could not be processed correctly
+    const VALIDATION_FAILURE = 491;
+
+    // Some technical failure prevented the completion of the transactions
+    const TECHNICAL_FAILURE = 492;
+
+    // The transaction was cancelled by the customer.
+    const CANCELLED_BY_USER = 890;
+
+    // The merchant cancelled the transaction.
+    const CANCELLED_BY_MERCHANT = 891;
+
+    // The transaction has been rejected by the (third party) payment provider.
+    const REJECTED = 690;
+
+    // The transaction is on hold while the payment engine is waiting on further input from the consumer.
+    const PENDING_INPUT = 790;
+
+    // The transaction is being processed.
+    const PENDING_PROCESSING = 791;
+
+    // The Payment Engine is waiting for the consumer to return from a 3rd party website to complete the transaction.
+    const AWAITING_CONSUMER = 792;
 }

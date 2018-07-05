@@ -30,7 +30,9 @@ use Buckaroo\Exceptions\MissingParameterException;
  * Class iDeal
  * @package Buckaroo\Services\Pay
  */
+// @codingStandardsIgnoreStart
 class iDeal extends AbstractPayService
+// @codingStandardsIgnoreEnd
 {
     /**
      * Get this service's name
