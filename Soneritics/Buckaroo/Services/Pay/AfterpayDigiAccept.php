@@ -36,54 +36,6 @@ use Buckaroo\Exceptions\NoArticlesProvidedException;
 class AfterpayDigiAccept extends AbstractPayService
 {
     /**
-     * @todo split articles, because they need more info:
-     *      "Name": "ArticleVatcategory",
-            "GroupType": "Article",
-            "GroupID": "1",
-            "Value": "1"
-
-
-
-    public function setArticleDescription(string $value): AfterpayDigiAccept
-    {
-    $this->set('ArticleDescription', $value);
-    return $this;
-    }
-
-    public function setArticleId(string $value): AfterpayDigiAccept
-    {
-    $this->set('ArticleId', $value);
-    return $this;
-    }
-
-    public function setArticleQuantity(string $value): AfterpayDigiAccept
-    {
-    $this->set('ArticleQuantity', $value);
-    return $this;
-    }
-
-    public function setArticleUnitprice(string $value): AfterpayDigiAccept
-    {
-    $this->set('ArticleUnitprice', $value);
-    return $this;
-    }
-
-    public function setArticleVatcategory(string $value): AfterpayDigiAccept
-    {
-    $this->set('ArticleVatcategory', $value);
-    return $this;
-    }
-
-    public function setArticleNetUnitprice(string $value): AfterpayDigiAccept
-    {
-    $this->set('ArticleNetUnitprice', $value);
-    return $this;
-    }
-
-     */
-
-
-    /**
      * @var array
      */
     private $articles = [];
