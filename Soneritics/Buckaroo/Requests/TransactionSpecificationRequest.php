@@ -26,6 +26,7 @@ namespace Buckaroo\Requests;
 
 use Buckaroo\Authentication\Authenticator;
 use Buckaroo\Exceptions\RestRequestException;
+use Buckaroo\Result\TransactionSpecificationResult;
 use Buckaroo\Services\Pay\AbstractPayService;
 
 /**
@@ -66,12 +67,12 @@ class TransactionSpecificationRequest implements ITransactionRequest
 
     /**
      * Perform the request
-     * @return array
+     * @return TransactionSpecificationResult
      * @throws RestRequestException
      * @throws \Buckaroo\Exceptions\InvalidHttpMethodException
      * @throws \Buckaroo\Exceptions\UnsupportedHttpMethodException
      */
-    public function request(): array
+    public function request(): TransactionSpecificationResult
     {
         $url = $this->endpoint . $this::API_URL . '/' . $this->service->getName();
         $headers = ['authorization' => $this->authenticator->getAuthenticationHeader('', $url, 'GET')];
@@ -81,6 +82,7 @@ class TransactionSpecificationRequest implements ITransactionRequest
             throw new RestRequestException((string)$request->getStatusCode() . ' ' . $request->getReasonPhrase());
         }
 
-        return json_decode($request->getBody()->getContents(), true);
+        $requestData = json_decode($request->getBody()->getContents(), true);
+        return new TransactionSpecificationResult($requestData);
     }
 }

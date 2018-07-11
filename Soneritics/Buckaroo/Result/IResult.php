@@ -22,17 +22,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-require_once '_require.php';
-require_once '_keys.php';
+namespace Buckaroo\Result;
 
-$authentication = new \Buckaroo\Authentication\Authentication($secretKey, $websiteKey);
-$buckaroo = new \Buckaroo\Buckaroo($authentication, true);
-
-$afterpayPayServiceSpecification = $buckaroo
-    ->getTransactionSpecificationRequest(new \Buckaroo\Services\Pay\AfterpayDigiAccept)
-    ->request();
-
-echo $afterpayPayServiceSpecification
-    ->getActions()['Pay']
-    ->getRequestParameters()['Accept']
-    ->getDescription();
+/**
+ * Interface IResult
+ * @package Buckaroo\Result
+ */
+interface IResult
+{
+    /**
+     * Parse from an array
+     * @param array $data
+     */
+    public function __construct(array $data);
+}

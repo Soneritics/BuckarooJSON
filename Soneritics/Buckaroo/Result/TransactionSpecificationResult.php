@@ -22,17 +22,42 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-require_once '_require.php';
-require_once '_keys.php';
+namespace Buckaroo\Result;
 
-$authentication = new \Buckaroo\Authentication\Authentication($secretKey, $websiteKey);
-$buckaroo = new \Buckaroo\Buckaroo($authentication, true);
+use Buckaroo\Result\Models\Action;
 
-$afterpayPayServiceSpecification = $buckaroo
-    ->getTransactionSpecificationRequest(new \Buckaroo\Services\Pay\AfterpayDigiAccept)
-    ->request();
+/**
+ * Class TransactionSpecificationResult
+ * @package Buckaroo\Requests
+ */
+class TransactionSpecificationResult implements IResult
+{
+    /**
+     * @var array
+     */
+    private $actions = [];
 
-echo $afterpayPayServiceSpecification
-    ->getActions()['Pay']
-    ->getRequestParameters()['Accept']
-    ->getDescription();
+    /**
+     * Parse from an array
+     * @param array $data
+     */
+    public function __construct(array $data)
+    {
+        if (isset($data['Actions'])) {
+            foreach ($data['Actions'] as $action) {
+                if (!empty($action['Name'])) {
+                    $this->actions[$action['Name']] = new Action($action);
+                }
+            }
+        }
+    }
+
+    /**
+     * Get the available actions
+     * @return array
+     */
+    public function getActions(): array
+    {
+        return $this->actions;
+    }
+}

@@ -32,7 +32,7 @@ interface ITransactionRequest
 {
     /**
      * Perform the request
-     * @return array
+     * @todo Must return an IResult, which is not yet implemented everywhere
      */
-    public function request(): array;
+    public function request();
 }

@@ -22,17 +22,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-require_once '_require.php';
-require_once '_keys.php';
+namespace Buckaroo\Enums;
 
-$authentication = new \Buckaroo\Authentication\Authentication($secretKey, $websiteKey);
-$buckaroo = new \Buckaroo\Buckaroo($authentication, true);
-
-$afterpayPayServiceSpecification = $buckaroo
-    ->getTransactionSpecificationRequest(new \Buckaroo\Services\Pay\AfterpayDigiAccept)
-    ->request();
-
-echo $afterpayPayServiceSpecification
-    ->getActions()['Pay']
-    ->getRequestParameters()['Accept']
-    ->getDescription();
+/**
+ * Class ListType
+ * @package Buckaroo\Enums
+ */
+class ListType
+{
+    const NONE = 0;
+    const SINGLE = 1;
+    const MULTI = 2;
+}
