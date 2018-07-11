@@ -116,7 +116,7 @@ class Action implements IResult
     }
 
     /**
-     * @return array
+     * @return RequestParameter[]
      */
     public function getRequestParameters(): array
     {

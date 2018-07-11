@@ -54,7 +54,7 @@ class TransactionSpecificationResult implements IResult
 
     /**
      * Get the available actions
-     * @return array
+     * @return Action[]
      */
     public function getActions(): array
     {
