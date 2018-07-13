@@ -40,3 +40,8 @@ if ($transactionStatusRequest['Status']['Code']['Code'] == PaymentStatus::SUCCES
 }
 ```
  
+ ## Change list
+| Version | Breaking | Changes | Notes |
+| --- | --- | --- | --- |
+| 1.* | No | Implement Refund, Authorize, Capture, etc. | __On request only!__ |
+| 2.0 | Yes | Map the responses to proper objects |  |
