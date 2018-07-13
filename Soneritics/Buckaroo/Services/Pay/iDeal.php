@@ -46,18 +46,13 @@ class iDeal extends AbstractPayService
     /**
      * Validate the parameters that have been filled
      * @param array $parameters
+     * @param array $mandatory
      * @throws MissingParameterException
      */
-    public function validateParameters(array $parameters): void
+    public function validateParameters(array $parameters, array $mandatory = []): void
     {
         $mandatory = ['issuer'];
-        $parameters = $this->getParameters();
-
-        foreach ($mandatory as $item) {
-            if (!isset($parameters[$item]) || empty($parameters[$item])) {
-                throw new MissingParameterException($item);
-            }
-        }
+        parent::validateParameters($parameters, $mandatory);
     }
 
     /**

@@ -51,10 +51,21 @@ abstract class AbstractService
 
     /**
      * Validate the parameters that have been filled
+     * Can be overridden in the implementing class to add extra validations.
      * @param array $parameters
+     * @param array $mandatory
      * @throws MissingParameterException
      */
-    abstract protected function validateParameters(array $parameters): void;
+    protected function validateParameters(array $parameters, array $mandatory = []): void
+    {
+        if (!empty($mandatory)) {
+            foreach ($mandatory as $item) {
+                if (!isset($parameters[$item]) || empty($parameters[$item])) {
+                    throw new MissingParameterException($item);
+                }
+            }
+        }
+    }
 
     /**
      * Validate the parameters that have been filled

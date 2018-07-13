@@ -60,10 +60,11 @@ class AfterpayDigiAccept extends AbstractPayService
     /**
      * Validate the parameters that have been filled
      * @param array $parameters
+     * @param array $mandatory
      * @throws MissingParameterException
      * @throws NoArticlesProvidedException
      */
-    public function validateParameters(array $parameters): void
+    public function validateParameters(array $parameters, array $mandatory = []): void
     {
         $mandatory = [
             'BillingInitials',
@@ -79,7 +80,6 @@ class AfterpayDigiAccept extends AbstractPayService
             'BillingLanguage',
             'CustomerIPAddress'
         ];
-        $parameters = $this->getParameters();
 
         if (isset($parameters['AddressesDiffer']) && $parameters['AddressesDiffer'] === true) {
             $mandatory += [
@@ -103,15 +103,11 @@ class AfterpayDigiAccept extends AbstractPayService
             $mandatory[] = 'BillingGender';
         }
 
-        foreach ($mandatory as $item) {
-            if (!isset($parameters[$item]) || empty($parameters[$item])) {
-                throw new MissingParameterException($item);
-            }
-        }
-
         if (empty($this->articles)) {
             throw new NoArticlesProvidedException('No articles have been provided');
         }
+
+        parent::validateParameters($parameters, $mandatory);
     }
 
     /**
