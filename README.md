@@ -6,4 +6,25 @@
 # Buckaroo
 > Buckaroo payment provider implementation classes
 
-@todo :-)
+Connect with Buckaroo through their easy to use JSON API.
+
+## Payment methods
+Currently, the following payment methods are supported
+* iDeal
+* AfterPay (DigiAccept)
+
+## Example
+Some example code has been added in the _Examples_ folder. A sneak peek below :-)
+
+```php
+$transactionKey = ''; // Your transaction key here
+
+$authentication = new Authentication($secretKey, $websiteKey);
+$buckaroo = new Buckaroo($authentication, true);
+$transactionStatusRequest = $buckaroo->getTransactionStatusRequest($transactionKey)->request();
+
+if ($transactionStatusRequest['Status']['Code']['Code'] == PaymentStatus::SUCCESS) {
+    // Order is paid
+}
+```
+ 

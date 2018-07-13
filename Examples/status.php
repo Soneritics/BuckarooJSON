@@ -25,11 +25,11 @@
 require_once '_require.php';
 require_once '_keys.php';
 
-$statusCode = ''; // Your status code here
+$transactionKey = ''; // Your transaction key here
 
 $authentication = new \Buckaroo\Authentication\Authentication($secretKey, $websiteKey);
 $buckaroo = new \Buckaroo\Buckaroo($authentication, true);
-$transactionStatusRequest = $buckaroo->getTransactionStatusRequest($statusCode)->request();
+$transactionStatusRequest = $buckaroo->getTransactionStatusRequest($transactionKey)->request();
 
 print_r($transactionStatusRequest);
 echo "This transaction is a " . ((bool)$transactionStatusRequest['IsTest'] ? 'TEST' : 'normal') . " transaction." . PHP_EOL;
