@@ -12,6 +12,18 @@ Connect with Buckaroo through their easy to use JSON API.
 Currently, the following payment methods are supported
 * iDeal
 * AfterPay (DigiAccept)
+* Bancontact
+* Credit cards:
+    * Mastercard
+    * Visa
+    * American Express
+* Debit cards:
+    * VPay
+    * Maestro
+    * Visa Electron
+    * Carte Bleue
+    * Carte Bancaire
+    * Dankort
 
 ## Example
 Some example code has been added in the _Examples_ folder. A sneak peek below :-)
