@@ -26,6 +26,7 @@ namespace Buckaroo;
 
 use Buckaroo\Authentication\Authentication;
 use Buckaroo\Authentication\Authenticator;
+use Buckaroo\Requests\MultiServiceTransactionRequest;
 use Buckaroo\Requests\TransactionRequest;
 use Buckaroo\Requests\TransactionSpecificationRequest;
 use Buckaroo\Requests\TransactionStatusRequest;
@@ -69,6 +70,15 @@ class Buckaroo
     public function getTransactionRequest(AbstractService $service): TransactionRequest
     {
         return new TransactionRequest(new Authenticator($this->authentication), $service, $this->getEndpoint());
+    }
+
+    /**
+     * Get the TransactionRequest for multiple service requests, where a user gets a page to choose one
+     * @return MultiServiceTransactionRequest
+     */
+    public function getMultiServiceTransactionRequest(): MultiServiceTransactionRequest
+    {
+        return new MultiServiceTransactionRequest(new Authenticator($this->authentication), $this->getEndpoint());
     }
 
     /**

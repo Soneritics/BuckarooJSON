@@ -39,7 +39,23 @@ if ($transactionStatusRequest['Status']['Code']['Code'] == PaymentStatus::SUCCES
     // Order is paid
 }
 ```
- 
+
+## Multiple payment methods
+When you want the customer to make a choice for the payment method, but you do not want it on your own site,
+that's also possible. You can use the MultiServiceTransactionRequest for that.
+This is something that's commonly used for creditcard transactions.
+```php
+$ccTransactionRequest = $buckaroo->getMultiServiceTransactionRequest()
+    ->addService(new CreditcardMastercard)
+    ->addService(new CreditcardVisa)
+    ->addService(new CreditcardAmericanExpress)
+    ->setAmountDebit(12.5)
+    ->setInvoice('inv-123')
+    ->request();
+    
+// Redirect the user to: echo $ccTransactionRequest['RequiredAction']['RedirectURL']
+```
+
  ## Change list
 | Version | Breaking | Changes | Notes |
 | --- | --- | --- | --- |

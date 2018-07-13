@@ -126,10 +126,10 @@ class TransactionRequest implements ITransactionRequest
     /**
      * TransactionRequest constructor.
      * @param Authenticator $authenticator
-     * @param AbstractService $service
+     * @param AbstractService|null $service
      * @param string $endpoint
      */
-    public function __construct(Authenticator $authenticator, AbstractService $service, string $endpoint)
+    public function __construct(Authenticator $authenticator, ?AbstractService $service, string $endpoint)
     {
         $this->authenticator = $authenticator;
         $this->service = $service;
@@ -347,7 +347,9 @@ class TransactionRequest implements ITransactionRequest
     private function validate(): void
     {
         // First validate the service params
-        $this->service->validate();
+        if (!is_null($this->service)) {
+            $this->service->validate();
+        }
 
         // Validate the own class' properties on being set
         $mandatoryProperties = ['currency', 'invoice'];
@@ -371,7 +373,7 @@ class TransactionRequest implements ITransactionRequest
      * Generate the call's payload
      * @return array
      */
-    private function getPayload(): array
+    protected function getPayload(): array
     {
         $result = [];
         $values = [
@@ -397,23 +399,27 @@ class TransactionRequest implements ITransactionRequest
             }
         }
 
-        $parameterList = [];
-        foreach ($this->service->getParameters() as $parameterName => $parameterValue) {
-            $parameterList[] = [
-                'Name' => $parameterName,
-                'Value' => $parameterValue
+        if (!is_null($this->service)) {
+            $parameterList = [];
+            foreach ($this->service->getParameters() as $parameterName => $parameterValue) {
+                $parameterList[] = [
+                    'Name' => $parameterName,
+                    'Value' => $parameterValue
+                ];
+            }
+
+            $parameterList = $this->service->complementParameterList($parameterList);
+
+            $result['Services'] = [
+                'ServiceList' => [[
+                    'Name' => $this->service->getName(),
+                    'Action' => $this->service->getAction(),
+                    'Parameters' => $parameterList
+                ]]
             ];
+        } else {
+            $result['Services'] = ['ServiceList' => []];
         }
-
-        $parameterList = $this->service->complementParameterList($parameterList);
-
-        $result['Services'] = [
-            'ServiceList' => [[
-                'Name' => $this->service->getName(),
-                'Action' => $this->service->getAction(),
-                'Parameters' => $parameterList
-            ]]
-        ];
 
         return $result;
     }
