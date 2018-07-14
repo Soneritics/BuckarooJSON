@@ -26,6 +26,8 @@ namespace Buckaroo\Enums;
 
 /**
  * Class iDealIssuers
+ * This full up-to-date list can be retrieved by using the TransactionSpecificationRequest
+ * @see Examples/iDealIssuer-issuers.php
  * @package Buckaroo\Enums
  */
 // @codingStandardsIgnoreStart
