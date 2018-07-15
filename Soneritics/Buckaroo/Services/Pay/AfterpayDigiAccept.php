@@ -137,7 +137,7 @@ class AfterpayDigiAccept extends AbstractPayService
      * @param string $id
      * @param string $description
      * @param int $quantity
-     * @param decimal $unitPrice
+     * @param float $unitPrice
      * @param int $vatCategory
      * @return AfterpayDigiAccept
      */
@@ -145,7 +145,7 @@ class AfterpayDigiAccept extends AbstractPayService
         string $id,
         string $description,
         int $quantity,
-        $unitPrice,
+        float $unitPrice,
         int $vatCategory = VatCategory::HIGH
     ): AfterpayDigiAccept {
         $this->articles[] = [
@@ -161,10 +161,10 @@ class AfterpayDigiAccept extends AbstractPayService
 
     /**
      * Shipping costs
-     * @param decimal $value
+     * @param float $value
      * @return AfterpayDigiAccept
      */
-    public function setShippingCosts($value): AfterpayDigiAccept
+    public function setShippingCosts(float $value): AfterpayDigiAccept
     {
         $this->set('ShippingCosts', $value);
         return $this;
@@ -172,10 +172,10 @@ class AfterpayDigiAccept extends AbstractPayService
 
     /**
      * Discount
-     * @param decimal $value
+     * @param float $value
      * @return AfterpayDigiAccept
      */
-    public function setDiscount($value): AfterpayDigiAccept
+    public function setDiscount(float $value): AfterpayDigiAccept
     {
         $this->set('Discount', $value);
         return $this;

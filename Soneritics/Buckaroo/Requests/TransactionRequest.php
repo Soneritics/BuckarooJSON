@@ -196,10 +196,10 @@ class TransactionRequest implements ITransactionRequest
 
     /**
      * The transaction debit amount (Either this or AmountCredit is required)
-     * @param decimal $amountDebit
+     * @param float $amountDebit
      * @return TransactionRequest
      */
-    public function setAmountDebit($amountDebit): TransactionRequest
+    public function setAmountDebit(float $amountDebit): TransactionRequest
     {
         $this->amountDebit = $amountDebit;
         return $this;
@@ -207,10 +207,10 @@ class TransactionRequest implements ITransactionRequest
 
     /**
      * The transaction credit amount (Either this or AmountDebit is required)
-     * @param decimal $amountCredit
+     * @param float $amountCredit
      * @return TransactionRequest
      */
-    public function setAmountCredit($amountCredit): TransactionRequest
+    public function setAmountCredit(float $amountCredit): TransactionRequest
     {
         $this->amountCredit = $amountCredit;
         return $this;
