@@ -5,8 +5,15 @@
 
 # Buckaroo
 > Buckaroo payment provider implementation classes
-
 Connect with Buckaroo through their easy to use JSON API.
+
+## Important!
+If you have the problem where floats are serialized the wrong way, add this line to your code: 
+```php
+ini_set( 'serialize_precision', -1 );
+```
+you have this problem when you get the error:
+An error occurred while processing the transaction: Total amount of articles does not match the transaction amount (S996)
 
 ## Payment methods
 Currently, the following payment methods are supported
