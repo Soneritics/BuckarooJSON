@@ -39,11 +39,11 @@ class VatCategory
     /**
      * Get a VAT rate based on a country code and percentage.
      * @param string $countryCode
-     * @param float $percentage
+     * @param decimal $percentage
      * @param int $default
      * @return int
      */
-    public static function calculate(string $countryCode, float $percentage, int $default = VatCategory::HIGH): int
+    public static function calculate(string $countryCode, $percentage, int $default = VatCategory::HIGH): int
     {
         $rates = [
             'nl' => [
