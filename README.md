@@ -20,6 +20,7 @@ Currently, the following payment methods are supported
 * iDeal
 * AfterPay (DigiAccept)
 * Bancontact
+* KBC
 * Credit cards:
     * Mastercard
     * Visa
