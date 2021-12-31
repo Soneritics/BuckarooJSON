@@ -121,7 +121,7 @@ class TransactionRequest implements ITransactionRequest
     /**
      * @var string
      */
-    private $PushURLFailure;
+    private $pushURLFailure;
 
     /**
      * TransactionRequest constructor.
