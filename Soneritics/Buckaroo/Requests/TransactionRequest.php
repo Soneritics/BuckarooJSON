@@ -333,9 +333,9 @@ class TransactionRequest implements ITransactionRequest
      * @param string $PushURLFailure
      * @return TransactionRequest
      */
-    public function setPushURLFailure(string $PushURLFailure): TransactionRequest
+    public function setPushURLFailure(string $pushURLFailure): TransactionRequest
     {
-        $this->PushURLFailure = $PushURLFailure;
+        $this->pushURLFailure = $pushURLFailure;
         return $this;
     }
 
