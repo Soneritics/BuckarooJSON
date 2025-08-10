@@ -124,6 +124,11 @@ class TransactionRequest implements ITransactionRequest
     private $pushURLFailure;
 
     /**
+     * @var string
+     */
+    private $clientIp;
+
+    /**
      * TransactionRequest constructor.
      * @param Authenticator $authenticator
      * @param AbstractService|null $service
@@ -340,6 +345,17 @@ class TransactionRequest implements ITransactionRequest
     }
 
     /**
+     * The IP address of the client that is making the request
+     * @param string $clientIp
+     * @return TransactionRequest
+     */
+    public function setClientIp(string $clientIp): TransactionRequest
+    {
+        $this->clientIp = $clientIp;
+        return $this;
+    }
+
+    /**
      * Validate the parameters
      * @throws \Buckaroo\Exceptions\MissingParameterException
      * @throws WrongParameterCombinationException
@@ -397,6 +413,13 @@ class TransactionRequest implements ITransactionRequest
             if (!empty($this->$prop)) {
                 $result[$value] = $this->$prop;
             }
+        }
+
+        if (!empty($this->clientIp)) {
+            $result['ClientIP'] = [
+                "Type" => 0,
+                "Address" => $this->clientIp
+            ];
         }
 
         if (!is_null($this->service)) {

@@ -2,7 +2,7 @@
 /*
  * The MIT License
  *
- * Copyright 2018 Jordi Jolink.
+ * Copyright 2025 Jordi Jolink.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,11 +25,14 @@
 namespace Buckaroo\Enums;
 
 /**
- * Class Gender
+ * Class CustomerCountry
  * @package Buckaroo\Enums
  */
-class Gender
+class CustomerCountry
 {
-    const MALE = 1;
-    const FEMALE = 2;
+    const NL = "NL";
+    const BE = "BE";
+    const DE = "DE";
+    const AT = "AT";
+    const FI = "FI";
 }
