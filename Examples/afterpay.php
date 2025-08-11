@@ -49,12 +49,25 @@ $afterpayPayService = (new \Buckaroo\Services\Pay\Afterpay)
         'Test product',
         2,
         20,
-        21);
+        21)
+
+    ->shipmentAddressDiffers(true)
+    ->setBillingCustomerCategory(\Buckaroo\Enums\CustomerCategory::PERSON)
+    ->setBillingCustomerSalutation(\Buckaroo\Enums\CustomerSalutation::MR)
+    ->setBillingCustomerFirstName("Jordi")
+    ->setBillingCustomerLastName("Jolink")
+    ->setBillingCustomerStreet("Hoofdstraat")
+    ->setBillingCustomerStreetNumber(124)
+    ->setBillingCustomerStreetNumberAdditional("a")
+    ->setBillingCustomerPostalCode('5678XX')
+    ->setBillingCustomerCity('Den Haag')
+    ->setBillingCustomerCountry('NL')
+    ->setBillingCustomerConversationLanguage('nl');
 
 $afterpayTransactionRequest = $buckaroo->getTransactionRequest($afterpayPayService)
     ->setClientIp("192.168.1.1")
     ->setAmountDebit(50)
-    ->setInvoice('ap-250810-001')
+    ->setInvoice('ap-250811-001')
     ->request();
 
 print_r($afterpayTransactionRequest);

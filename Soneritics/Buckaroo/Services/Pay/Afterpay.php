@@ -28,7 +28,6 @@ use Buckaroo\Enums\CustomerCategory;
 use Buckaroo\Enums\CustomerCountry;
 use Buckaroo\Enums\CustomerLanguage;
 use Buckaroo\Enums\CustomerSalutation;
-use Buckaroo\Enums\Gender;
 use Buckaroo\Exceptions\MissingParameterException;
 use Buckaroo\Exceptions\NoArticlesProvidedException;
 
@@ -191,12 +190,10 @@ class Afterpay extends AbstractPayService
      */
     public function setMerchantImageUrl(string $value): Afterpay
     {
-        $this->setServiceParameter(
+        return $this->setServiceParameter(
             'MerchantImageUrl',
             $value,
             '');
-
-        return $this;
     }
 
     /**
@@ -206,12 +203,10 @@ class Afterpay extends AbstractPayService
      */
     public function setBillingCustomerCategory(string $value = CustomerCategory::PERSON): Afterpay
     {
-        $this->setServiceParameter(
+        return $this->setServiceParameter(
             'Category',
             $value,
             'BillingCustomer');
-
-        return $this;
     }
 
     /**
@@ -221,12 +216,10 @@ class Afterpay extends AbstractPayService
      */
     public function setBillingCustomerCompanyName(string $value): Afterpay
     {
-        $this->setServiceParameter(
+        return $this->setServiceParameter(
             'CompanyName',
             $value,
             'BillingCustomer');
-
-        return $this;
     }
 
     /**
@@ -236,12 +229,10 @@ class Afterpay extends AbstractPayService
      */
     public function setBillingCustomerSalutation(string $value = CustomerSalutation::MR): Afterpay
     {
-        $this->setServiceParameter(
+        return $this->setServiceParameter(
             'Salutation',
             $value,
             'BillingCustomer');
-
-        return $this;
     }
 
     /**
@@ -251,12 +242,10 @@ class Afterpay extends AbstractPayService
      */
     public function setBillingCustomerFirstName(string $value): Afterpay
     {
-        $this->setServiceParameter(
+        return $this->setServiceParameter(
             'FirstName',
             $value,
             'BillingCustomer');
-
-        return $this;
     }
 
     /**
@@ -266,12 +255,10 @@ class Afterpay extends AbstractPayService
      */
     public function setBillingCustomerLastName(string $value): Afterpay
     {
-        $this->setServiceParameter(
+        return $this->setServiceParameter(
             'LastName',
             $value,
             'BillingCustomer');
-
-        return $this;
     }
 
     /**
@@ -281,12 +268,10 @@ class Afterpay extends AbstractPayService
      */
     public function setBillingCustomerBirthDate(\DateTime $value): Afterpay
     {
-        $this->setServiceParameter(
+        return $this->setServiceParameter(
             'BirthDate',
             $value->format('d-m-Y'),
             'BillingCustomer');
-
-        return $this;
     }
 
     /**
@@ -296,12 +281,10 @@ class Afterpay extends AbstractPayService
      */
     public function setBillingCustomerStreet(string $value): Afterpay
     {
-        $this->setServiceParameter(
+        return $this->setServiceParameter(
             'Street',
             $value,
             'BillingCustomer');
-
-        return $this;
     }
 
     /**
@@ -311,12 +294,10 @@ class Afterpay extends AbstractPayService
      */
     public function setBillingCustomerStreetNumber(int $value): Afterpay
     {
-        $this->setServiceParameter(
+        return $this->setServiceParameter(
             'StreetNumber',
             $value,
             'BillingCustomer');
-
-        return $this;
     }
 
     /**
@@ -324,14 +305,12 @@ class Afterpay extends AbstractPayService
      * @param string $value
      * @return $this
      */
-    public function setStreetNumberAdditional(string $value): Afterpay
+    public function setBillingCustomerStreetNumberAdditional(string $value): Afterpay
     {
-        $this->setServiceParameter(
+        return $this->setServiceParameter(
             'StreetNumberAdditional',
             $value,
             'BillingCustomer');
-
-        return $this;
     }
 
     /**
@@ -341,12 +320,10 @@ class Afterpay extends AbstractPayService
      */
     public function setBillingCustomerPostalCode(string $value): Afterpay
     {
-        $this->setServiceParameter(
+        return $this->setServiceParameter(
             'PostalCode',
             $value,
             'BillingCustomer');
-
-        return $this;
     }
 
     /**
@@ -356,12 +333,10 @@ class Afterpay extends AbstractPayService
      */
     public function setBillingCustomerCity(string $value): Afterpay
     {
-        $this->setServiceParameter(
+        return $this->setServiceParameter(
             'City',
             $value,
             'BillingCustomer');
-
-        return $this;
     }
 
     /**
@@ -371,12 +346,10 @@ class Afterpay extends AbstractPayService
      */
     public function setBillingCustomerCountry(string $value = CustomerCountry::NL): Afterpay
     {
-        $this->setServiceParameter(
+        return $this->setServiceParameter(
             'Country',
             $value,
             'BillingCustomer');
-
-        return $this;
     }
 
     /**
@@ -386,12 +359,10 @@ class Afterpay extends AbstractPayService
      */
     public function setBillingCustomerMobilePhone(string $value): Afterpay
     {
-        $this->setServiceParameter(
+        return $this->setServiceParameter(
             'MobilePhone',
             $value,
             'BillingCustomer');
-
-        return $this;
     }
 
     /**
@@ -401,12 +372,10 @@ class Afterpay extends AbstractPayService
      */
     public function setBillingCustomerEmail(string $value): Afterpay
     {
-        $this->setServiceParameter(
+        return $this->setServiceParameter(
             'Email',
             $value,
             'BillingCustomer');
-
-        return $this;
     }
 
     /**
@@ -416,12 +385,10 @@ class Afterpay extends AbstractPayService
      */
     public function setBillingCustomerConversationLanguage(string $value = CustomerLanguage::NL): Afterpay
     {
-        $this->setServiceParameter(
+        return $this->setServiceParameter(
             'ConversationLanguage',
             $value,
             'BillingCustomer');
-
-        return $this;
     }
 
     /**
@@ -431,25 +398,219 @@ class Afterpay extends AbstractPayService
      */
     public function setBillingCustomerCustomerNumber(string $value): Afterpay
     {
-        $this->setServiceParameter(
+        return $this->setServiceParameter(
             'CustomerNumber',
             $value,
             'BillingCustomer');
-
-        return $this;
     }
 
-    /*
-    public function set(string $value): Afterpay
+    /**
+     * Customer category of shipping customer.
+     * @param string $value
+     * @return $this
+     */
+    public function setShippingCustomerCategory(string $value = CustomerCategory::PERSON): Afterpay
     {
-        $this->setServiceParameter(
-            '',
+        return $this->setServiceParameter(
+            'Category',
             $value,
-            '');
-
-        return $this;
+            'ShippingCustomer');
     }
-    */
+
+    /**
+     * Company name. Mandatory for B2B.
+     * @param string $value
+     * @return $this
+     */
+    public function setShippingCustomerCompanyName(string $value): Afterpay
+    {
+        return $this->setServiceParameter(
+            'CompanyName',
+            $value,
+            'ShippingCustomer');
+    }
+
+    /**
+     * Required if Shipping country is NL or BE. Gender of shipping customer.
+     * @param string $value
+     * @return $this
+     */
+    public function setShippingCustomerSalutation(string $value = CustomerSalutation::MR): Afterpay
+    {
+        return $this->setServiceParameter(
+            'Salutation',
+            $value,
+            'ShippingCustomer');
+    }
+
+    /**
+     * First name of shipping customer.
+     * @param string $value
+     * @return $this
+     */
+    public function setShippingCustomerFirstName(string $value): Afterpay
+    {
+        return $this->setServiceParameter(
+            'FirstName',
+            $value,
+            'ShippingCustomer');
+    }
+
+    /**
+     * Last name of shipping customer, prefix included.
+     * @param string $value
+     * @return $this
+     */
+    public function setShippingCustomerLastName(string $value): Afterpay
+    {
+        return $this->setServiceParameter(
+            'LastName',
+            $value,
+            'ShippingCustomer');
+    }
+
+    /**
+     * Birth date of shipping customer.
+     * @param \DateTime $value
+     * @return $this
+     */
+    public function setShippingCustomerBirthDate(\DateTime $value): Afterpay
+    {
+        return $this->setServiceParameter(
+            'BirthDate',
+            $value->format('d-m-Y'),
+            'ShippingCustomer');
+    }
+
+    /**
+     * Street of shipping customer.
+     * @param string $value
+     * @return $this
+     */
+    public function setShippingCustomerStreet(string $value): Afterpay
+    {
+        return $this->setServiceParameter(
+            'Street',
+            $value,
+            'ShippingCustomer');
+    }
+
+    /**
+     * House number of shipping customer.
+     * @param int $value
+     * @return $this
+     */
+    public function setShippingCustomerStreetNumber(int $value): Afterpay
+    {
+        return $this->setServiceParameter(
+            'StreetNumber',
+            $value,
+            'ShippingCustomer');
+    }
+
+    /**
+     * House number suffix of shipping customer.
+     * @param string $value
+     * @return $this
+     */
+    public function setShippingCustomerStreetNumberAdditional(string $value): Afterpay
+    {
+        return $this->setServiceParameter(
+            'StreetNumberAdditional',
+            $value,
+            'ShippingCustomer');
+    }
+
+    /**
+     * Postal code of shipping customer.
+     * @param string $value
+     * @return $this
+     */
+    public function setShippingCustomerPostalCode(string $value): Afterpay
+    {
+        return $this->setServiceParameter(
+            'PostalCode',
+            $value,
+            'ShippingCustomer');
+    }
+
+    /**
+     * City of shipping customer.
+     * @param string $value
+     * @return $this
+     */
+    public function setShippingCustomerCity(string $value): Afterpay
+    {
+        return $this->setServiceParameter(
+            'City',
+            $value,
+            'ShippingCustomer');
+    }
+
+    /**
+     * Country of shipping customer. Possible values: NL, BE, DE, AT, FI.
+     * @param string $value
+     * @return $this
+     */
+    public function setShippingCustomerCountry(string $value = CustomerCountry::NL): Afterpay
+    {
+        return $this->setServiceParameter(
+            'Country',
+            $value,
+            'ShippingCustomer');
+    }
+
+    /**
+     * Mobile phone number of the shipping customer.
+     * @param string $value
+     * @return $this
+     */
+    public function setShippingCustomerMobilePhone(string $value): Afterpay
+    {
+        return $this->setServiceParameter(
+            'MobilePhone',
+            $value,
+            'ShippingCustomer');
+    }
+
+    /**
+     * Email address of shipping customer.
+     * @param string $value
+     * @return $this
+     */
+    public function setShippingCustomerEmail(string $value): Afterpay
+    {
+        return $this->setServiceParameter(
+            'Email',
+            $value,
+            'ShippingCustomer');
+    }
+
+    /**
+     * Conversation language of shipping customer. Possible values: NL, FR, DE, FI.
+     * @param string $value
+     * @return $this
+     */
+    public function setShippingCustomerConversationLanguage(string $value = CustomerLanguage::NL): Afterpay
+    {
+        return $this->setServiceParameter(
+            'ConversationLanguage',
+            $value,
+            'ShippingCustomer');
+    }
+
+    /**
+     * The number you assign to the shipping customer.
+     * @param string $value
+     * @return $this
+     */
+    public function setShippingCustomerCustomerNumber(string $value): Afterpay
+    {
+        return $this->setServiceParameter(
+            'CustomerNumber',
+            $value,
+            'ShippingCustomer');
+    }
 
     private function setServiceParameter(string $name, string $value, string $groupType = ''): Afterpay
     {
